@@ -112,21 +112,21 @@ process_route_config() {
   # If user passed "0" skip this, assume no extra routes
   [[ "$ovpn_route_config" == "0" ]] && break;
   echo "Processing Route Config: '${ovpn_route_config}'"
-  [[ -n "$ovpn_route_config" ]] && echo "route $(getroute $ovpn_route_config)" >> "$TMP_ROUTE_CONFIGFILE"
+  [[ -n "$ovpn_route_config" ]] && echo "route $(getroute $ovpn_route_config)" > "$TMP_ROUTE_CONFIGFILE"
 }
 
 process_push_config() {
   local ovpn_push_config=''
   ovpn_push_config="$1"
   echo "Processing PUSH Config: '${ovpn_push_config}'"
-  [[ -n "$ovpn_push_config" ]] && echo "push \"$ovpn_push_config\"" >> "$TMP_PUSH_CONFIGFILE"
+  [[ -n "$ovpn_push_config" ]] && echo "push \"$ovpn_push_config\"" > "$TMP_PUSH_CONFIGFILE"
 }
 
 process_extra_config() {
   local ovpn_extra_config=''
   ovpn_extra_config="$1"
   echo "Processing Extra Config: '${ovpn_extra_config}'"
-  [[ -n "$ovpn_extra_config" ]] && echo "$ovpn_extra_config" >> "$TMP_EXTRA_CONFIGFILE"
+  [[ -n "$ovpn_extra_config" ]] && echo "$ovpn_extra_config" > "$TMP_EXTRA_CONFIGFILE"
 }
 
 if [ "${DEBUG:-}" == "1" ]; then
@@ -271,6 +271,9 @@ done
 # Create ccd directory for static routes
 [ ! -d "${OPENVPN:-}/ccd" ] && mkdir -p ${OPENVPN:-}/ccd
 
+# Create log directory
+[ ! -d "${OPENVPN:-}/log" ] && mkdir -p ${OPENVPN:-}/log
+
 # Server name is in the form "udp://vpn.example.com:1194"
 if [[ "${OVPN_SERVER_URL:-}" =~ ^((udp|tcp|udp6|tcp6)://)?([0-9a-zA-Z\.\-]+)(:([0-9]+))?$ ]]; then
     OVPN_PROTO=${BASH_REMATCH[2]};
@@ -334,7 +337,11 @@ proto $OVPN_PROTO
 # Rely on Docker to do port mapping, internally always 1194
 port 1194
 dev $OVPN_DEVICE$OVPN_DEVICEN
-status /tmp/openvpn-status.log
+
+# current client connections
+status /etc/openvpn/log/openvpn-status.log
+# logging settings.
+log-append /etc/openvpn/log/openvpn.log
 
 user nobody
 group nogroup
