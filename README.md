@@ -1,6 +1,6 @@
 # OpenVPN for Docker
 
-[![Build Status](https://travis-ci.org/kylemanna/docker-openvpn.svg)](https://travis-ci.org/kylemanna/docker-openvpn)
+[![Build Status](https://gitlab.com/domrod/docker-openvpn/badges/master/pipeline.svg)](https://gitlab.com/domrod/docker-openvpn/-/commits/master)
 [![Docker Stars](https://img.shields.io/docker/stars/domrod/openvpn_server.svg)](https://hub.docker.com/r/domrod/openvpn_server/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/domrod/openvpn_server.svg)](https://hub.docker.com/r/domrod/openvpn_server/)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkylemanna%2Fdocker-openvpn.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkylemanna%2Fdocker-openvpn?ref=badge_shield)
