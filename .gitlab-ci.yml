@@ -26,6 +26,9 @@ build:
     - docker inspect "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker run --rm "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" openvpn --version || true # why does it return 1?
     - docker run --rm "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" openssl version
+    - git clone https://github.com/docker-library/official-images.git official-images
+    - official-images/test/run.sh "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - test/run.sh "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
