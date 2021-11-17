@@ -9,6 +9,8 @@ services:
   - docker:19.03.12-dind
 
 before_script:
+  - apk update && apk add git bash
+  - git clone https://github.com/docker-library/official-images.git official-images
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 build-master:
@@ -23,6 +25,11 @@ build:
   stage: build
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker inspect "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker run --rm "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" openvpn --version || true # why does it return 1?
+    - docker run --rm "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" openssl version
+    - official-images/test/run.sh "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - test/run.sh "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
