@@ -14,7 +14,7 @@ a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
 #### Upstream Links
 
 * Docker Registry @ [domrod/openvpn_server](https://hub.docker.com/r/domrod/openvpn_server)
-* GitHub @ [kylemanna/docker-openvpn](https://github.com/domrod/docker-openvpn)
+* GitHub @ [domrod/docker-openvpn](https://github.com/domrod/docker-openvpn)
 
 ## Quick Start
 
