@@ -1,12 +1,12 @@
 
-image: docker:19.03.12
+image: docker:27.4.1
 
 stages:
   - build-master
   - build
 
 services:
-  - docker:19.03.12-dind
+  - docker:27.4.1-dind
 
 before_script:
   - apk update && apk add git bash

@@ -2,7 +2,7 @@
 # Fork from https://github.com/kylemanna/docker-openvpn
 
 # Smallest base image
-FROM alpine:latest
+FROM alpine:3.21.3
 
 LABEL maintainer="https://gitlab.com/domrod"
 
